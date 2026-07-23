@@ -1,6 +1,5 @@
-import streamlit as st 
+import streamlit as st
+
 
 def header_home():
-    st.markdown("""
-    # TrueAttend
-    """)
+    st.header("TrueAttend")
