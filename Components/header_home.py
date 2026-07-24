@@ -1,5 +1,6 @@
 import base64
 import streamlit as st
+from ui.home_screen_bg import style_dashboard_layout
 
 
 def get_base64(path):
@@ -36,6 +37,20 @@ def header_home():
         <div class="header">
             <img src="data:image/png;base64,{logo}">
             <h1>TrueAttend</h1>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def header_dashboard():
+    logo = get_base64("Assets/TrueAttend.png")
+
+    st.markdown(
+        f"""
+        <div class="header">
+            <img src="data:image/png;base64,{logo}">
+            <h2>TrueAttend</h2>
         </div>
         """,
         unsafe_allow_html=True,
