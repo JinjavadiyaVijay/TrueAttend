@@ -1,0 +1,8 @@
+dlib-bin
+git+https://.com/ageitgey/face_recognition_models
+
+librosa
+resemb
+
+supabase
+bcrypt

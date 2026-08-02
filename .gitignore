@@ -1,10 +1,15 @@
 .env
 .venv/
-.pyc
+
 .vscode
 __pycache__/
-/.streamlit/
+
+.streamlit/
 dist/
 .toml
 .ink
 .ini
+
+*.pyc
+__pycache__/
+database/

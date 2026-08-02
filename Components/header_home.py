@@ -55,3 +55,13 @@ def header_dashboard():
         """,
         unsafe_allow_html=True,
     )
+
+def sub_header_deshboard(text):
+    st.markdown(
+        f"""
+        <div class="sub-header">
+            <h3>{text}</h3>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
