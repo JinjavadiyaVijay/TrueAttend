@@ -42,11 +42,11 @@ def style_home_layout():
             
             @import url('https://fonts.googleapis.com/css2?family=Sonsie+One&family=Sora:wght@100..800&display=swap');
             
-            #MainMenu,
-            header,
-            footer{
-                visibility:hidden;
-            }
+            # #MainMenu,
+            # header,
+            # footer{
+            #     visibility:hidden;
+            # }
             
             h1, h2{
                 font-family:'Sonsie One',sans-serif !important;
@@ -101,11 +101,11 @@ def style_dashboard_layout():
             
             @import url('https://fonts.googleapis.com/css2?family=Sonsie+One&family=Sora:wght@100..800&display=swap');
             
-            #MainMenu,
-            header,
-            footer{
-                visibility:hidden;
-            }
+            # #MainMenu,
+            # header,
+            # footer{
+            #     visibility:hidden;
+            # }
 
             .header {
                 display: flex !important;
@@ -145,6 +145,38 @@ def style_dashboard_layout():
                 color:#063B00;
             }
             
+            /* Tertiary buttons */
+            button[kind="tertiary"] {
+                background-color: transparent !important;
+                color: #1f2937 !important;
+                border: 2px solid #94a3b8 !important;
+                border-radius: 12px !important;
+                font-weight: 600 !important;
+                transition: all 0.2s ease;
+            }
+            
+            /* Hover */
+            button[kind="tertiary"]:hover {
+                background-color: #e2e8f0 !important;
+                color: black !important;
+                border-color: #64748b !important;
+            }
+            
+            /* Active */
+            button[kind="tertiary"]:active {
+                background-color: #cbd5e1 !important;
+            }
+            
+            /* Icon */
+            button[kind="tertiary"] svg {
+                color: inherit !important;
+            }
+            
+            /* Text */
+            button[kind="tertiary"] p {
+                color: inherit !important;
+                font-weight: 600 !important;
+            }
             
             /* Text input container */
             div[data-testid="stTextInput"]{
@@ -198,6 +230,17 @@ def style_dashboard_layout():
                 transform:scale(1.05);
             }
             
+            /* Spinner text */
+            .stSpinner > div p{
+                color:white !important;
+                font-size:18px;
+                font-weight:600;
+            }
+
+            /* Spinner circle */
+            .stSpinner svg{
+                stroke:#ff9800 !important;
+            }
             
             /* Remove top padding */
             .block-container{

@@ -65,3 +65,16 @@ def sub_header_deshboard(text):
         """,
         unsafe_allow_html=True,
     )
+
+def custom_text_input(label, placeholder="", key=None):
+    st.markdown(
+        f"<p style='color:#ff9800;font-size:18px;font-weight:600'>{label}</p>",
+        unsafe_allow_html=True,
+    )
+
+    return st.text_input(
+        "",
+        placeholder=placeholder,
+        key=key,
+        label_visibility="collapsed",
+    )
