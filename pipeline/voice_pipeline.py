@@ -1,4 +1,4 @@
-import resemblyzer import VoiceEncoder, preprocess_wav
+from resemblyzer import VoiceEncoder, preprocess_wav
 import numpy as np 
 import io
 import librosa
@@ -18,7 +18,7 @@ def get_voice_embedding(audio_bytes):
         return embedding.tolist()
     
     except Exception as e:
-        st.error('voice'recog error)
+        st.error('voice recog error')
         return None
 
 def identify_speaker(new_embedding, candidates_dict, threshold=0.65):

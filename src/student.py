@@ -1,7 +1,7 @@
 import streamlit as st
 from Components.header_home import header_dashboard,sub_header_deshboard
 from ui.home_screen_bg import deshboard_screen_bg, style_dashboard_layout
-import PIL as Image
+from PIL import Image
 import numpy as np 
 
 
