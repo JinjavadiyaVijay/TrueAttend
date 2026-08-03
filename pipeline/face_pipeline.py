@@ -47,17 +47,18 @@ def get_trained_model():
         if embedding:
             X.append(np.array(embedding))
             y.append(student.get('student_id'))
-        
-        if len(X)==0:
-            return None
-        
-        clf = SVC(kernel='linear',probability=True, class_weight='balanced')
+            
+    if len(X)==0:
+        return None
     
-        try:
-            clf.fit(X,y)
-        except ValueError:
-            pass
-        return{'clf':clf, 'x':X, 'y':y}
+    clf = SVC(kernel='linear',probability=True, class_weight='balanced')
+
+    try:
+        clf.fit(X,y)
+    except ValueError:
+        pass
+    
+    return {'clf':clf, 'x':X, 'y':y}
        
 def train_classifier():
     st.cache_resource.clear()
@@ -79,11 +80,12 @@ def predict_attendance(class_image_np):
     
     all_students = sorted(list(set(y_train)))
     
+    
     for embedding in embeddings:
         if len(all_students)>=2:
             predicted_id = int(clf.predict([embedding])[0])
-        else :
-            prodicted_id=int(all_students[0])
+        else:
+            predicted_id = int(all_students[0])
             
         student_embedding = x_train[y_train.index(predicted_id)]
         
@@ -93,4 +95,4 @@ def predict_attendance(class_image_np):
         
         if best_match_score <= resemblance_threshold:
             detected_student[predicted_id] = True
-    return detected_student, all_students, len(embedding)
+    return detected_student, all_students, len(embeddings)

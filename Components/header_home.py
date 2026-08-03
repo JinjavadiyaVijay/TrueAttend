@@ -56,7 +56,7 @@ def header_dashboard():
         unsafe_allow_html=True,
     )
 
-def sub_header_deshboard(text):
+def sub_header_dashboard(text):
     st.markdown(
         f"""
         <div class="sub-header">

@@ -1,6 +1,6 @@
 import streamlit as st
-from Components.header_home import header_dashboard,sub_header_deshboard,custom_text_input
-from ui.home_screen_bg import deshboard_screen_bg, style_dashboard_layout
+from Components.header_home import header_dashboard,sub_header_dashboard,custom_text_input
+from ui.home_screen_bg import dashboard_screen_bg, style_dashboard_layout
 from PIL import Image
 import numpy as np 
 import time
@@ -14,7 +14,7 @@ def student_dashboard():
 def student_screen():
 
     style_dashboard_layout()
-    deshboard_screen_bg()
+    dashboard_screen_bg()
 
     if "student_data" in st.session_state:
         student_dashboard()
@@ -39,7 +39,7 @@ def student_screen():
             st.session_state.show_registration = False
             st.rerun()
 
-    sub_header_deshboard("Login using FaceID")
+    sub_header_dashboard("Login using FaceID")
     st.markdown("""
         <hr style="
             border: none;
@@ -114,7 +114,7 @@ def student_screen():
 
         with st.container(border=True):
 
-            sub_header_deshboard("Register New Profile")
+            sub_header_dashboard("Register New Profile")
 
             new_name = custom_text_input(
                 "Enter your name",
