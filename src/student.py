@@ -182,26 +182,36 @@ def student_dashboard():
     student_data = st.session_state.student_data
     student_id = student_data['student_id']
 
-    c1, c2 = st.columns([5, 2], vertical_alignment='center')
+    c1,_,c2 = st.columns([2,1,1], vertical_alignment='center')
     with c1:
         header_dashboard()
     with c2:
-        st.subheader(f"Welcome, {student_data['name']}")
+       
         if st.button(
             "Logout",
             type="primary",
             icon=":material/arrow_back:",
             key='loginbackbtn',
             shortcut="control+backspace",
+            width="stretch"
         ):
             st.session_state['is_logged_in'] = False
             del st.session_state.student_data
             st.rerun()
-
     st.space()
+    st.markdown("""
+        <hr style="
+            border: none;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.18);
+            margin: 24px 0;
+        ">
+        """, unsafe_allow_html=True)
+
+
 
     # ── Header + Enroll Button ──
-    hc1, hc2 = st.columns([3, 1])
+    hc1,_,hc2 = st.columns([2, 1,1])
     with hc1:
         sub_header_dashboard("Your Enrolled Subjects")
     with hc2:
@@ -245,7 +255,14 @@ def student_dashboard():
     with m4:
         st.metric("Attendance %", f"{overall_pct}%")
 
-    st.divider()
+    st.markdown("""
+        <hr style="
+            border: none;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.18);
+            margin: 24px 0;
+        ">
+        """, unsafe_allow_html=True)
 
     # ── Subject Cards ──
     cols = st.columns(2)

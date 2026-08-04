@@ -291,6 +291,29 @@ def style_dashboard_layout():
                 font-weight:700;
                 color:#063B00;
             }}
+            /* ── Metric Cards ───────────────────────────── */
+
+            [data-testid="stMetric"] {{
+                background: #ffffff;
+                border: 1px solid #E5E7EB;
+                border-radius: 14px;
+                padding: 16px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }}
+
+            [data-testid="stMetricLabel"] {{
+                color: #64748B !important;
+                font-size: 0.9rem !important;
+                font-weight: 600 !important;
+            }}
+
+            [data-testid="stMetricValue"] {{
+                color: #4B5694 !important;   
+                font-size: 2rem !important;
+                font-weight: 700 !important;
+            }}
+            
+            
 
             </style>
         """,

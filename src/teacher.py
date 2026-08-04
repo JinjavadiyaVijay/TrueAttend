@@ -44,7 +44,7 @@ def teacher_dashboard():
     with c1:
         header_dashboard()
     with c2:
-        st.subheader(f"Welcome, {teacher_data['name']}")
+       
         if st.button(
             "Log out",
             type="primary",
@@ -151,7 +151,7 @@ def teacher_tab_take_attendence():
         uploaded = st.file_uploader("Upload class photo", type=["jpg", "jpeg", "png"])
         if uploaded:
             class_image = np.array(Image.open(uploaded))
-            st.image(class_image, caption="Uploaded photo", use_container_width=True)
+            st.image(class_image, caption="Uploaded photo", width='stretch')
 
     if class_image is not None:
         if st.button("🔍 Run Face Attendance", type="primary", width="stretch"):
@@ -230,6 +230,7 @@ def teacher_tab_take_attendence():
 # ─── Manage Subjects Tab ─────────────────────────────────────────
 def teacher_tab_manage_subjects():
     teacher_id = st.session_state.teacher_data['teacher_id']
+    teacher_name = st.session_state.teacher_data['name']
 
     col1,_,col2 = st.columns([1,2,1],gap='large')
     with col1:
@@ -247,6 +248,7 @@ def teacher_tab_manage_subjects():
 
     # List all subjects
     subjects = get_teacher_subject(teacher_id)
+    
 
     if not subjects:
         st.info("📚 No subjects yet. Click 'Create New Subject' to get started!")
@@ -279,6 +281,7 @@ def teacher_tab_manage_subjects():
             name=sub['name'],
             code=sub['subject_code'],
             section=sub['section'],
+            teacher_name = teacher_name,
             stats=stats,
             footer_callback=make_share_btn(sub['name'], sub['subject_code']),
         )
@@ -344,7 +347,7 @@ def teacher_tab_attendence_records():
     st.divider()
 
     # Data table
-    st.dataframe(filtered, hide_index=True, use_container_width=True)
+    st.dataframe(filtered, hide_index=True, width='stretch')
 
     # CSV Export
     st.divider()
