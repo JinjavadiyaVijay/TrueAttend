@@ -89,6 +89,7 @@ def student_screen():
                 if student:
                     st.session_state.student_data = student
                     st.session_state.user_role = "student"
+                    st.session_state.is_logged_in = True
                     st.toast(f"Welcome back {student['name']}!", icon="👋")
                     time.sleep(1)
                     st.rerun()
@@ -170,6 +171,7 @@ def student_screen():
 
                         st.session_state.student_data = response_data[0]
                         st.session_state.user_role = "student"
+                        st.session_state.is_logged_in = True
                         st.session_state.show_registration = False
 
                         st.toast(f"Profile created! Hi {new_name}!", icon="🎉")

@@ -3,6 +3,16 @@ from database.db import create_subject
 
 import segno 
 import io 
+import os
+from urllib.parse import urlencode
+
+
+APP_BASE_URL = os.getenv("TRUEATTEND_BASE_URL", "http://localhost:8501")
+
+
+def _build_join_url(subject_code):
+    query = urlencode({"join_code": subject_code})
+    return f"{APP_BASE_URL.rstrip('/')}/?{query}"
 
 @st.dialog("Create New Subject")
 def create_subject_dailog(teacher_id):
@@ -24,8 +34,7 @@ def create_subject_dailog(teacher_id):
 
 @st.dialog("Share Subject Code")
 def share_subject_dialog(sub_name, sub_code):
-    app_domain="http://localhost:8501/"
-    join_url=f"{app_domain}/?subject_code={sub_code}"
+    join_url = _build_join_url(sub_code)
 
     qr = segno.make(join_url)
 
@@ -37,7 +46,7 @@ def share_subject_dialog(sub_name, sub_code):
         st.markdown('### Copy Link')
         st.code(join_url, language='text')
         st.code(sub_code, language='text')
-        st.info('Copy this link and share and share to students to join class')
+        st.info('Copy this link or QR code to invite students to join this subject.')
     
     with col2:
         st.markdown('### Scan QR Code')

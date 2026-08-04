@@ -101,6 +101,16 @@ def teacher_dashboard():
     footer()
 
 
+# ─── Dialogs ──────────────────────────────────────────────────────
+@st.dialog("Take Class Photo")
+def take_picture_dialog():
+    photo = st.camera_input("Capture class photo", label_visibility="collapsed")
+    if photo:
+        st.session_state.class_image = np.array(Image.open(photo))
+    
+    if st.button("Done", type="primary", use_container_width=True):
+        st.rerun()
+
 # ─── Take Attendance Tab ─────────────────────────────────────────
 def teacher_tab_take_attendence():
     sub_header_dashboard('Take AI Attendance')
@@ -134,34 +144,60 @@ def teacher_tab_take_attendence():
         "<h4 style='color:#ff9800;'>📷 Upload class photo or use camera</h4>",
         unsafe_allow_html=True,
     )
+    
+    st.markdown("""
+        <style>
+        [data-testid="stFileUploaderDropzone"] {
+            background-color: #000000 !important;
+        }
+        [data-testid="stFileUploaderDropzone"] * {
+            color: #FFFFFF !important;
+        }
+        [data-testid="stAudioInput"] {
+            background-color: #000000 !important;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        [data-testid="stAudioInput"] * {
+            color: #FFFFFF !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
-    input_method = st.radio(
-        "Input method",
-        ["Camera", "Upload Photo"],
-        horizontal=True,
-        label_visibility="collapsed",
-    )
+    if 'file_uploader_key' not in st.session_state:
+        st.session_state.file_uploader_key = 0
+    if 'class_image' not in st.session_state:
+        st.session_state.class_image = None
 
-    class_image = None
-    if input_method == "Camera":
-        photo = st.camera_input("Capture class photo", label_visibility="collapsed")
-        if photo:
-            class_image = np.array(Image.open(photo))
-    else:
-        uploaded = st.file_uploader("Upload class photo", type=["jpg", "jpeg", "png"])
-        if uploaded:
-            class_image = np.array(Image.open(uploaded))
-            st.image(class_image, caption="Uploaded photo", width='stretch')
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        if st.button("Take Picture", icon="📷", use_container_width=True):
+            take_picture_dialog()
+    with col2:
+        if st.button("Clear All Photo", icon="🗑️", use_container_width=True):
+            st.session_state.class_image = None
+            st.session_state.file_uploader_key += 1
+            st.rerun()
 
-    if class_image is not None:
-        if st.button("🔍 Run Face Attendance", type="primary", width="stretch"):
+    uploaded = st.file_uploader("Upload class photo", type=["jpg", "jpeg", "png"], key=f"uploader_{st.session_state.file_uploader_key}")
+    if uploaded:
+        st.session_state.class_image = np.array(Image.open(uploaded))
+
+    if st.session_state.class_image is not None:
+        st.image(st.session_state.class_image, caption="Class photo", use_container_width=True)
+        
+        if st.button("🔍 Run Face Attendance", type="primary", use_container_width=True):
             with st.spinner("AI is scanning faces..."):
-                detected, all_ids, num_faces = predict_attendance(class_image)
+                detected, all_ids, num_faces = predict_attendance(st.session_state.class_image)
 
             st.toast(f"Detected {num_faces} face(s)", icon="🔍")
 
             if num_faces == 0:
                 st.warning("No faces detected in the photo. Try again with a clearer image.")
+                if st.button("Back", key="back_no_face_btn", use_container_width=True):
+                    st.session_state.class_image = None
+                    st.session_state.file_uploader_key += 1
+                    st.rerun()
                 return
 
             # Build attendance logs
