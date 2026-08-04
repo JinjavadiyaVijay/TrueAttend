@@ -10,3 +10,4 @@ librosa
 Pillow
 torch
 torchaudio
+segno

@@ -231,11 +231,18 @@ def teacher_tab_take_attendence():
 def teacher_tab_manage_subjects():
     teacher_id = st.session_state.teacher_data['teacher_id']
 
-    col1, col2 = st.columns([3, 1])
+    col1,_,col2 = st.columns([1,2,1],gap='large')
     with col1:
-        sub_header_dashboard("Manage Subjects")
+        st.markdown(
+        f"""
+            <h3 style="margin:0;padding:0;font:800 1.5rem 'Sora',sans-serif;color:#063B00;line-height:1.2;">
+            Manage Subjects
+            </h3>
+        """,
+        unsafe_allow_html=True,
+        )
     with col2:
-        if st.button("➕ Create New Subject", type="primary"):
+        if st.button("Create New Subject", type="primary",width='stretch'):
             create_subject_dailog(teacher_id)
 
     # List all subjects
@@ -254,7 +261,7 @@ def teacher_tab_manage_subjects():
         # Use partial to avoid closure bug — captures current sub values
         def make_share_btn(name, code):
             def share_btn():
-                sc1, sc2 = st.columns(2)
+                sc1, sc2,_,_,_,_= st.columns(6)
                 with sc1:
                     if st.button(f"📤 Share Code", key=f"share_{code}", type="primary"):
                         share_subject_dialog(name, code)
