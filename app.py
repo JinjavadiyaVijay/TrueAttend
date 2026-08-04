@@ -1,6 +1,6 @@
 import streamlit as st
 from src.home import home_screen
-from src.teacher import teacher_screen 
+from src.teacher import teacher_screen
 from src.student import student_screen
 
 st.set_page_config(

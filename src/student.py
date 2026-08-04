@@ -47,15 +47,16 @@ def student_screen():
     st.markdown("""
         <hr style="
             border: none;
-            border-top: 3px solid red;
-            margin: 20px 0;
+            height: 1px;
+            background: #E2E8F0;
+            margin: 24px 0;
         ">
         """, unsafe_allow_html=True)
 
     st.divider()
 
     st.markdown(
-        "<h4 style='color:#ff9800;'>📷 Position your face in the center</h4>",
+        "<h4 style='color:#16A34A;font-family:Sora,sans-serif;font-weight:700;font-size:1.1rem;'>📷 Position your face in the center</h4>",
         unsafe_allow_html=True,
     )
 
@@ -99,8 +100,9 @@ def student_screen():
     st.markdown("""
         <hr style="
             border: none;
-            border-top: 3px solid red;
-            margin: 20px 0;
+            height: 1px;
+            background: #E2E8F0;
+            margin: 24px 0;
         ">
         """, unsafe_allow_html=True)
 
