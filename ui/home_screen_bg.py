@@ -193,7 +193,7 @@ def style_dashboard_layout():
             
             /* Spinner text */
             .stSpinner > div p{{
-                color:white !important;
+                color:#063B00 !important;
                 font-size:18px;
                 font-weight:600;
             }}
@@ -202,7 +202,69 @@ def style_dashboard_layout():
             .stSpinner svg{{
                 stroke:#ff9800 !important;
             }}
+            
+            /* Metric cards */
+            div[data-testid="stMetric"]{{
+                background: white;
+                border-radius: 14px;
+                padding: 16px 20px;
+                border: 1px solid rgba(0,0,0,0.08);
+                box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            }}
+            
+            div[data-testid="stMetricLabel"]{{
+                color: #64748b !important;
+                font-weight: 600 !important;
+                font-size: 0.85rem !important;
+            }}
+            
+            div[data-testid="stMetricValue"]{{
+                color: #063B00 !important;
+                font-weight: 700 !important;
+                font-size: 1.6rem !important;
+            }}
+            
+            /* Data tables */
+            div[data-testid="stDataFrame"]{{
+                border-radius: 12px;
+                overflow: hidden;
+                border: 1px solid rgba(0,0,0,0.08);
+            }}
+            
+            /* Select box */
+            div[data-testid="stSelectbox"] div[data-baseweb="select"]{{
+                background: white !important;
+                border: 2px solid #063B00 !important;
+                border-radius: 12px !important;
+            }}
+            
+            div[data-testid="stSelectbox"] label{{
+                color: #063B00 !important;
+                font-weight: 600 !important;
+            }}
+            
+            /* Download button */
+            div[data-testid="stDownloadButton"] button{{
+                background-color: #063B00 !important;
+                color: white !important;
+                border: none !important;
+                border-radius: 12px !important;
+            }}
+            
+            /* File uploader */
+            div[data-testid="stFileUploader"]{{
+                border: 2px dashed #4B5694 !important;
+                border-radius: 12px !important;
+                padding: 10px !important;
+            }}
+            
+            /* Radio buttons */
+            div[data-testid="stRadio"] label{{
+                color: #063B00 !important;
+                font-weight: 600 !important;
+            }}
             </style>
         """,
         unsafe_allow_html=True,
     )
+

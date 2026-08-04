@@ -6,3 +6,4 @@ if students:
     print(f"id: {students[0].get('id')}")
 else:
     print("No students found.")
+

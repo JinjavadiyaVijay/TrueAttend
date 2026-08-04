@@ -1,6 +1,5 @@
 import base64
 import streamlit as st
-from ui.home_screen_bg import style_dashboard_layout
 
 
 def get_base64(path):

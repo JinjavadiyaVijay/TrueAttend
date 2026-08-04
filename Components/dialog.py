@@ -5,7 +5,7 @@ from database.db import create_subject
 def create_subject_dailog(teacher_id):
     st.write('Enter the details of new subjecr')
     sub_id = st.text_input("Subject Code",placeholder="C5101")
-    sub_name = st.text_input("Subject None",placeholder="Introduction to Computer science")
+    sub_name = st.text_input("Subject Name",placeholder="Introduction to Computer Science")
     sub_section = st.text_input("Section",placeholder="A")
     
     if st.button("Create Subject Now",type='primary',width='stretch'):
