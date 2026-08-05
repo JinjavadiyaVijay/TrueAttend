@@ -52,6 +52,7 @@ def teacher_dashboard():
             icon=":material/arrow_back:",
             icon_position="left",
             key='longinbackbtn',
+            width='stretch'
         ):
             st.session_state["is_logged_in"] = False
             del st.session_state.teacher_data
@@ -287,7 +288,7 @@ def teacher_tab_take_attendence():
             current_images.append(np.array(Image.open(uf)))
 
     if current_images:
-        st.markdown("**Uploaded / Captured Images:**")
+        st.markdown('<p style="color:black; font-weight:bold;">Uploaded / Captured Images:</p>', unsafe_allow_html=True)
         cols = st.columns(4)
         for idx, img in enumerate(current_images):
             cols[idx % 4].image(img, use_container_width=True)
