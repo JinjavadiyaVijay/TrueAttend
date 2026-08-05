@@ -10,6 +10,8 @@ dist/
 .ink
 .ini
 
+*.json
+*.jsonl
 *.pyc
 __pycache__/
 database/

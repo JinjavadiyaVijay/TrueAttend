@@ -1,11 +1,16 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchaudio
 streamlit
 supabase
 bcrypt
 dlib-bin
-face_recognition @ git+https://github.com/thetoby9944/face_recognition
+face_recognition_models
 numpy
 scikit-learn
+pandas
 resemblyzer
 librosa
 Pillow
 segno
+starlette<0.41.0
