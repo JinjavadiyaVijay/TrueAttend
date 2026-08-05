@@ -57,4 +57,5 @@ def main():
     if join_code and student_logged_in:
         auto_enroll_dialog(join_code)
     
-main()
+if __name__ == "__main__":
+    main()
