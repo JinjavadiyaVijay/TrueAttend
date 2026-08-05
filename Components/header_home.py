@@ -67,7 +67,7 @@ def sub_header_dashboard(text):
 
 def custom_text_input(label, placeholder="", key=None):
     st.markdown(
-        f"<p style='color:#ff9800;font-size:18px;font-weight:600'>{label}</p>",
+        f"<p style='color:#063B00;font-size:20px;font-weight:600'>{label}</p>",
         unsafe_allow_html=True,
     )
 

@@ -70,10 +70,13 @@ def share_subject_dialog(sub_name, sub_code):
 def take_picture_dialog():
     st.markdown("""
         <style>
-            div[role="dialog"] header h2 {
+            /* Dialog title */
+            [data-testid="stDialog"] h2 p {
                 color: white !important;
             }
-            div[role="dialog"] h2 {
+            
+            /* Optional: make all text inside dialog white */
+            [data-testid="stDialog"] {
                 color: white !important;
             }
         </style>

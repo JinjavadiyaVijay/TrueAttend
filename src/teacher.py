@@ -582,6 +582,14 @@ def teacher_screen_login():
             st.rerun()
 
     sub_header_dashboard("Login using password")
+    st.markdown("""
+        <hr style="
+            border: none;
+            height: 2px;
+            background: #515357;
+            margin: 24px 0;
+        ">
+        """, unsafe_allow_html=True)
     st.space()
     teacher_username = st.text_input("Enter username", placeholder='Enter your username')
 

@@ -49,9 +49,8 @@ def student_screen():
     st.markdown("""
         <hr style="
             border: none;
-            height: 1px;
-            background: #E2E8F0;
-            margin: 24px 0;
+            border-top: 2px solid red;
+            margin: 20px 0;
         ">
         """, unsafe_allow_html=True)
 
@@ -69,10 +68,20 @@ def student_screen():
     img = None
 
     if photo_source:
-        img = np.array(Image.open(photo_source))
-
-        with st.spinner("AI is scanning..."):
-            detected, all_ids, num_faces = predict_attendance(img)
+        # Check if we already processed this exact photo to avoid rerunning ML models on every keystroke
+        if "last_photo_id" not in st.session_state or st.session_state.last_photo_id != photo_source.file_id:
+            img = np.array(Image.open(photo_source))
+            # Ensure RGB format for dlib
+            if len(img.shape) == 3 and img.shape[2] == 4:
+                img = img[:, :, :3]
+                
+            with st.spinner("AI is scanning..."):
+                detected, all_ids, num_faces = predict_attendance(img)
+                
+            st.session_state.last_photo_id = photo_source.file_id
+            st.session_state.last_pred = (detected, all_ids, num_faces)
+        else:
+            detected, all_ids, num_faces = st.session_state.last_pred
 
         if num_faces == 0:
             st.warning("Face not found. Make sure your face is clearly visible.")
@@ -94,6 +103,9 @@ def student_screen():
                     st.toast(f"Welcome back {student['name']}!", icon="👋")
                     time.sleep(1)
                     st.rerun()
+                else:
+                    st.error("Face recognized but student not found in database. Please register.")
+                    st.session_state.show_registration = True
             else:
                 st.info("Face not recognized. Please register below.")
                 st.session_state.show_registration = True
@@ -123,11 +135,25 @@ def student_screen():
                 key="reg_username",
             )
 
-            st.subheader("Optional Voice Enrollment")
+            st.markdown("""
+                <hr style="
+                    border: none;
+                    height: 1px;
+                    background: rgba(0, 0, 0, 0.18);
+                    margin: 24px 0;
+                ">
+            """, unsafe_allow_html=True)
+            
+            st.markdown("""
+                <h4 style="color:#ff9800;">
+                ◉ Voice Enrollment (Optional)
+                </h4>
+            """, unsafe_allow_html=True)
+            
             st.info("Record a short voice sample to enable voice attendance.")
 
             audio_data = st.audio_input(
-                "Say: 'My name is ... and I am present.'"
+                "Record Voice Sample (Optional)", key="reg_audio"
             )
 
             if st.button("Create Account", type="primary", width="stretch"):

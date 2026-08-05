@@ -11,7 +11,7 @@ def home_screen():
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("I'm Teacher")
-        st.image("Assets/Professor-cuate (1).svg",width='stretch')
+        st.image("Assets/Professor-cuate (1).svg")
         if st.button(
             "Teacher",
             type="primary",
@@ -23,7 +23,7 @@ def home_screen():
 
     with col2:
         st.subheader("I'm Student")
-        st.image("Assets/Learning-cuate.svg",width='stretch')
+        st.image("Assets/Learning-cuate.svg")
         if st.button(
             "Student",
             type="primary",

@@ -416,6 +416,12 @@ def style_dashboard_layout():
             div[data-testid="stAlert"][kind="info"] p {{
                 color: white !important;
             }}
+            
+            [data-testid="stDialog"] h2,
+                [data-testid="stDialog"] h2 *,
+                [data-testid="stDialog"] h2 p {{
+                    color: white !important;
+                }}
             </style>
         """,
         unsafe_allow_html=True,
