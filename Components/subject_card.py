@@ -7,191 +7,242 @@ def _subject_card_styles():
     st.markdown(
         """
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
 .ta-subject-card {
     position: relative;
     overflow: hidden;
-    background: #ffffff;
-    border: 1px solid rgba(75, 86, 148, 0.14);
-    border-left: 6px solid #4B5694;
-    border-radius: 18px;
-    box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03), 
+                inset 0 2px 0 rgba(255, 255, 255, 0.7);
     padding: 24px;
     margin: 18px 0 14px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-.ta-subject-card::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 4px;
-    background: linear-gradient(90deg, #4B5694, rgba(75, 86, 148, 0.08));
+
+.ta-subject-card:hover {
+    transform: translateY(-4px) scale(1.005);
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08), 
+                0 5px 15px rgba(15, 23, 42, 0.03);
+    border-color: rgba(99, 102, 241, 0.3);
 }
+
 .ta-subject-grid {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(220px, 3fr);
-    gap: 22px;
+    gap: 24px;
     align-items: stretch;
 }
+
 .ta-subject-main {
     min-width: 0;
 }
+
 .ta-subject-kicker {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    color: #4B5694;
-    font-size: 0.74rem;
-    font-weight: 800;
-    letter-spacing: 0;
+    gap: 6px;
+    color: #6366f1;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
     margin-bottom: 8px;
 }
+
 .ta-subject-card .ta-subject-title,
 .ta-subject-card h3.ta-subject-title {
     margin: 0;
-    color: #101828 !important;
-    -webkit-text-fill-color: #101828;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a;
     font-family: "Sora", sans-serif;
-    font-size: clamp(1.28rem, 2.2vw, 1.7rem);
-    font-weight: 850;
-    line-height: 1.16;
-    opacity: 1;
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
 }
+
 .ta-subject-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 9px;
-    margin: 14px 0 18px;
+    gap: 10px;
+    margin: 16px 0 20px;
 }
+
 .ta-subject-badge {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    border-radius: 999px;
-    border: 1px solid rgba(75, 86, 148, 0.16);
-    background: #F4F5FF;
-    color: #4B5694;
+    gap: 6px;
+    border-radius: 8px;
+    background: #eef2ff;
+    color: #4f46e5;
     font-size: 0.78rem;
-    font-weight: 750;
-    padding: 7px 11px;
-    line-height: 1;
+    font-weight: 650;
+    padding: 6px 12px;
+    border: 1px solid rgba(99, 102, 241, 0.15);
+    transition: background 0.2s;
 }
+
+.ta-subject-badge:hover {
+    background: #e0e7ff;
+}
+
 .ta-subject-badge span {
-    color: #64748b;
-    font-weight: 700;
+    color: #6b7280;
+    font-weight: 500;
 }
+
 .ta-stat-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 12px;
 }
+
 .ta-stat-card {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
+    display: flex;
     align-items: center;
-    gap: 11px;
-    min-height: 74px;
-    border-radius: 14px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    background: linear-gradient(180deg, #ffffff 0%, #F8FAFC 100%);
-    padding: 13px 14px;
+    gap: 12px;
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    padding: 14px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+    transition: all 0.2s ease;
 }
+
+.ta-stat-card:hover {
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    border-color: rgba(203, 213, 225, 0.8);
+}
+
 .ta-stat-icon {
     display: grid;
     place-items: center;
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
-    background: rgba(75, 86, 148, 0.11);
-    color: #4B5694;
-    font-size: 1.12rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+    color: #4f46e5;
 }
+
+.ta-stat-icon .material-symbols-outlined {
+    font-size: 20px;
+    font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
 .ta-stat-value {
-    color: #063B00;
-    font-size: 1.22rem;
-    font-weight: 850;
-    line-height: 1.05;
+    color: #0f172a;
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.1;
 }
+
 .ta-stat-label {
     color: #64748b;
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0;
+    font-size: 0.7rem;
+    font-weight: 650;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     margin-top: 4px;
 }
+
 .ta-subject-side {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     border-radius: 16px;
-    background: #F8FAFC;
-    border: 1px solid rgba(75, 86, 148, 0.12);
-    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    padding: 20px;
 }
+
 .ta-instructor {
     display: grid;
-    grid-template-columns: 40px minmax(0, 1fr);
-    gap: 11px;
+    grid-template-columns: 44px minmax(0, 1fr);
+    gap: 12px;
     align-items: center;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    padding-bottom: 14px;
+    border-bottom: 1px dashed rgba(203, 213, 225, 0.8);
 }
+
 .ta-avatar {
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 13px;
-    background: #4B5694;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
     color: #ffffff;
-    font-weight: 850;
+    font-size: 0.95rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.25);
 }
+
 .ta-side-label {
     color: #64748b;
-    font-size: 0.72rem;
-    font-weight: 800;
+    font-size: 0.7rem;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
+
 .ta-side-value {
-    color: #101828;
-    font-size: 0.92rem;
-    font-weight: 800;
+    color: #0f172a;
+    font-size: 0.95rem;
+    font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    margin-top: 2px;
 }
+
 .ta-meta-list {
     display: grid;
-    gap: 9px;
+    gap: 10px;
 }
+
 .ta-meta-row {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 12px;
     color: #64748b;
     font-size: 0.8rem;
 }
+
 .ta-meta-row strong {
-    color: #334155;
-    font-weight: 800;
+    color: #1e293b;
+    font-weight: 700;
 }
+
 .ta-status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     color: #166534;
-    background: #DCFCE7;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
     border-radius: 999px;
-    padding: 3px 8px;
+    padding: 3px 10px;
     font-size: 0.72rem;
-    font-weight: 850;
+    font-weight: 700;
 }
+
+.ta-status-pill::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #22c55e;
+}
+
 @media (max-width: 760px) {
-    .ta-subject-card {
-        padding: 18px;
-    }
     .ta-subject-grid {
         grid-template-columns: 1fr;
-    }
-    .ta-subject-side {
-        padding: 14px;
+        gap: 16px;
     }
 }
 </style>
@@ -219,7 +270,7 @@ def _render_stat_cards(stats):
     for icon, label, value in stats:
         cards.append(
             '<div class="ta-stat-card">'
-            f'<div class="ta-stat-icon">{_safe(icon)}</div>'
+            f'<div class="ta-stat-icon"><span class="material-symbols-outlined">{_safe(icon)}</span></div>'
             '<div>'
             f'<div class="ta-stat-value">{_safe(value)}</div>'
             f'<div class="ta-stat-label">{_safe(label)}</div>'
@@ -257,7 +308,7 @@ def subject_card(
         '<section class="ta-subject-card">'
         '<div class="ta-subject-grid">'
         '<div class="ta-subject-main">'
-        '<div class="ta-subject-kicker">&#128218; Subject</div>'
+        '<div class="ta-subject-kicker"><span class="material-symbols-outlined" style="font-size:16px;">library_books</span> Subject</div>'
         '<h3 class="ta-subject-title" '
         'style="margin:0;color:#101828!important;-webkit-text-fill-color:#101828;'
         'font-family:Sora,sans-serif;font-size:1.55rem;font-weight:850;line-height:1.16;opacity:1;">'

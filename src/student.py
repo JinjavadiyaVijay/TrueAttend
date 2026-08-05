@@ -38,6 +38,9 @@ def student_screen():
             "Go Back to Home",
             type="primary",
             icon=":material/arrow_back:",
+            width='stretch',
+            shortcut='cltr+backspace',
+            key='gobackbtn',
         ):
             st.session_state.login_state = None
             st.session_state.show_registration = False
@@ -53,12 +56,11 @@ def student_screen():
         ">
         """, unsafe_allow_html=True)
 
-    st.divider()
-
-    st.markdown(
-        "<h4 style='color:#16A34A;font-family:Sora,sans-serif;font-weight:700;font-size:1.1rem;'>📷 Position your face in the center</h4>",
-        unsafe_allow_html=True,
-    )
+    st.markdown("""
+        <h4 style="color:#16A34A;font-family:Sora,sans-serif;font-weight:700;font-size:1.1rem;display:flex;align-items:center;gap:8px;">
+           ◉ Center your face in the frame
+        </h4>
+        """, unsafe_allow_html=True)
 
     photo_source = st.camera_input(
         label="camera",
@@ -217,7 +219,7 @@ def student_dashboard():
     with hc1:
         sub_header_dashboard("Your Enrolled Subjects")
     with hc2:
-        if st.button("➕ Enroll in Subject", type="primary", width="stretch"):
+        if st.button("Enroll in Subject",icon=':material/assignment_add:', type="primary", width="stretch"):
             enroll_dialog()
 
     st.divider()
@@ -228,7 +230,7 @@ def student_dashboard():
         logs = get_student_attendance(student_id)
 
     if not enrollments:
-        st.info("📚 You haven't enrolled in any subjects yet. Click 'Enroll in Subject' above!")
+        st.info("You haven't enrolled in any subjects yet. Click 'Enroll in Subject' above!",icon=':material/document_search:')
         footer()
         return
 
@@ -278,13 +280,13 @@ def student_dashboard():
         pct = round((s['attended'] / s['total'] * 100), 1) if s['total'] > 0 else 0
 
         stats = [
-            ("📊", "attended", f"{s['attended']}/{s['total']}"),
-            ("📈", "percentage", f"{pct}%"),
+            ("group", "attended", f"{s['attended']}/{s['total']}"),
+            ("trending_up", "percentage", f"{pct}%"),
         ]
 
         def make_unenroll_btn(sid, sname, subj_id):
             def unenroll_btn():
-                if st.button(f"🚪 Unenroll", key=f"unenroll_{subj_id}", type="primary"):
+                if st.button(f"Unenroll",icon=':material/tab_move:' ,key=f"unenroll_{subj_id}", type="primary"):
                     try:
                         unenroll_student_to_subject(sid, subj_id)
                         st.toast(f"Unenrolled from {sname}", icon="👋")
@@ -294,10 +296,13 @@ def student_dashboard():
             return unenroll_btn
 
         with cols[i % 2]:
+            t_data = sub.get('teachers')
+            t_name = t_data.get('name', 'Unknown') if isinstance(t_data, dict) else 'Unknown'
             subject_card(
                 name=sub.get('name', '—'),
                 code=sub.get('subject_code', '—'),
                 section=sub.get('section', '—'),
+                teacher_name=t_name,
                 stats=stats,
                 footer_callback=make_unenroll_btn(
                     student_id,

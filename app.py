@@ -3,10 +3,12 @@ from src.home import home_screen
 from src.teacher import teacher_screen
 from Components.dialog_enroll import auto_enroll_dialog
 from src.student import student_screen
+from PIL import Image
 
+logo = Image.open("Assets/TrueAttend.png")
 st.set_page_config(
     page_title="TrueAttend — AI Attendance System",
-    page_icon="🎓",
+    page_icon=logo,
     layout="wide",
 )
 
@@ -30,6 +32,7 @@ def _sync_join_code_from_url():
 
 
 def main():
+    
     if 'login_state' not in st.session_state:
         st.session_state['login_state'] = None
 

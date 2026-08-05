@@ -20,6 +20,7 @@ from pipeline.face_pipeline import predict_attendance, get_face_embeddings
 from pipeline.voice_pipeline import process_bulk_audio
 
 
+
 # ─── Main Entry ───────────────────────────────────────────────────
 def teacher_screen():
     style_dashboard_layout()
@@ -106,7 +107,9 @@ def teacher_dashboard():
 def take_picture_dialog():
     photo = st.camera_input("Capture class photo", label_visibility="collapsed")
     if photo:
-        st.session_state.class_image = np.array(Image.open(photo))
+        if 'class_images' not in st.session_state:
+            st.session_state.class_images = []
+        st.session_state.class_images.append(np.array(Image.open(photo)))
     
     if st.button("Done", type="primary", use_container_width=True):
         st.rerun()
@@ -135,67 +138,177 @@ def teacher_tab_take_attendence():
         st.warning("⚠️ No students enrolled in this subject yet. Share the subject code with students.")
         return
 
-    st.markdown(f"**{len(enrolled_student_ids)}** students enrolled in **{selected_name}**")
-
-    st.divider()
+    st.markdown(
+        f"""
+        <p style="color:#1F2937; font-size:16px;">
+            <strong>{len(enrolled_student_ids)}</strong> students enrolled in
+            <strong>{selected_name}</strong>
+        </p>
+        """,
+        unsafe_allow_html=True
+        )
+    st.markdown("""
+        <hr style="
+            border: none;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.18);
+            margin: 24px 0;
+        ">
+        """, unsafe_allow_html=True)
 
     # ── Photo Attendance ──
     st.markdown(
-        "<h4 style='color:#ff9800;'>📷 Upload class photo or use camera</h4>",
+        "<h4 style='color:#ff9800;'>◉ Upload class photo or use camera</h4>",
         unsafe_allow_html=True,
     )
     
     st.markdown("""
-        <style>
-        [data-testid="stFileUploaderDropzone"] {
-            background-color: #000000 !important;
-        }
-        [data-testid="stFileUploaderDropzone"] * {
-            color: #FFFFFF !important;
-        }
-        [data-testid="stAudioInput"] {
-            background-color: #000000 !important;
-            padding: 10px;
-            border-radius: 8px;
-        }
-        [data-testid="stAudioInput"] * {
-            color: #FFFFFF !important;
-        }
-        </style>
+     <style>
+
+            [data-testid="stFileUploaderDropzone"] {
+                border: 2px dashed #D1D5DB !important;
+                border-radius: 16px !important;
+                padding: 24px !important;
+                background: #FFFFFF !important;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+
+            /* Hover effect */
+            [data-testid="stFileUploaderDropzone"]:hover {
+                border-color: #4B5694 !important;
+                background: #F8FAFF !important;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(75, 86, 148, 0.15);
+            }
+            /* All text inside uploader */
+            [data-testid="stFileUploaderDropzone"] * {
+                color: #2D3748 !important;
+            }
+            /* Browse files button */
+            [data-testid="stFileUploaderDropzone"] button {
+                background-color: #4B5694 !important;
+                color: white !important;
+                border: none !important;
+            }
+            
+            /* Upload button text */
+            [data-testid="stFileUploaderDropzone"] [data-testid="stMarkdownContainer"] p {
+                color: #FFFFFF !important;
+            }
+            
+            /* Upload icon */
+            [data-testid="stFileUploaderDropzone"] [data-testid="stIconMaterial"] {
+                color: #FFFFFF !important;
+            }
+           
+            }
+            /* Paragraphs */
+            [data-testid="stFileUploaderDropzone"] p {
+                color: #374151 !important;
+            }
+
+            /* Labels */
+            [data-testid="stFileUploaderDropzone"] span {
+                color: #374151 !important;
+            }
+
+            /* SVG icon */
+            [data-testid="stFileUploaderDropzone"] svg {
+                color: #4B5694 !important;
+                fill: #4B5694 !important;
+            }
+
+
+            /* While clicking */
+            [data-testid="stFileUploaderDropzone"]:active {
+                transform: scale(0.98);
+            }
+
+            /* Audio input */
+            [data-testid="stAudioInput"] {
+                padding: 12px !important;
+                border-radius: 12px !important;
+                background: #FFFFFF !important;
+                border: 1px solid #E5E7EB !important;
+                transition: all 0.3s ease;
+            }
+
+            [data-testid="stAudioInput"]:hover {
+                border-color: #4B5694 !important;
+                box-shadow: 0 4px 12px rgba(75,86,148,0.15);
+            }
+
+            /* Dialog text */
+            div[data-testid="stDialog"] div[data-testid="stMarkdownContainer"] p {
+                color: #333333 !important;
+            }
+            /* File uploader label */
+            [data-testid="stWidgetLabel"] {
+                color: #1F2937 !important;
+            }
+
+            [data-testid="stWidgetLabel"] p {
+                color: #1F2937 !important;
+                font-weight: 600;
+            }
+
+            [data-testid="stWidgetLabel"] span {
+                color: #1F2937 !important;
+            }
+    </style>
     """, unsafe_allow_html=True)
 
     if 'file_uploader_key' not in st.session_state:
         st.session_state.file_uploader_key = 0
-    if 'class_image' not in st.session_state:
-        st.session_state.class_image = None
+    if 'class_images' not in st.session_state:
+        st.session_state.class_images = []
 
     col1, col2 = st.columns([1, 1])
     with col1:
-        if st.button("Take Picture", icon="📷", use_container_width=True):
+        if st.button("Take Picture", icon=':material/add_a_photo:', use_container_width=True):
             take_picture_dialog()
     with col2:
-        if st.button("Clear All Photo", icon="🗑️", use_container_width=True):
-            st.session_state.class_image = None
+        if st.button("Clear All Photo", icon=':material/delete:', use_container_width=True):
+            st.session_state.class_images = []
             st.session_state.file_uploader_key += 1
             st.rerun()
 
-    uploaded = st.file_uploader("Upload class photo", type=["jpg", "jpeg", "png"], key=f"uploader_{st.session_state.file_uploader_key}")
-    if uploaded:
-        st.session_state.class_image = np.array(Image.open(uploaded))
+    uploaded_files = st.file_uploader(
+        "Upload class photos", 
+        type=["jpg", "jpeg", "png"], 
+        accept_multiple_files=True, 
+        key=f"uploader_{st.session_state.file_uploader_key}"
+    )
+    
+    current_images = list(st.session_state.class_images)
+    if uploaded_files:
+        for uf in uploaded_files:
+            current_images.append(np.array(Image.open(uf)))
 
-    if st.session_state.class_image is not None:
-        st.image(st.session_state.class_image, caption="Class photo", use_container_width=True)
-        
-        if st.button("🔍 Run Face Attendance", type="primary", use_container_width=True):
-            with st.spinner("AI is scanning faces..."):
-                detected, all_ids, num_faces = predict_attendance(st.session_state.class_image)
+    if current_images:
+        st.markdown("**Uploaded / Captured Images:**")
+        cols = st.columns(4)
+        for idx, img in enumerate(current_images):
+            cols[idx % 4].image(img, use_container_width=True)
+            
+        if st.button("Run Face Attendance", icon=':material/data_loss_prevention:', type="primary", use_container_width=True):
+            with st.spinner("AI is scanning faces across all images..."):
+                all_detected = {}
+                total_faces = 0
+                
+                for img in current_images:
+                    detected, all_ids, num_faces = predict_attendance(img)
+                    all_detected.update(detected)
+                    total_faces += num_faces
 
-            st.toast(f"Detected {num_faces} face(s)", icon="🔍")
+            st.toast(f"Detected a total of {total_faces} face(s)", icon=':material/sensor_occupied:')
 
-            if num_faces == 0:
-                st.warning("No faces detected in the photo. Try again with a clearer image.")
+            if total_faces == 0:
+                st.warning("No faces detected in any photo. Try again with clearer images.")
                 if st.button("Back", key="back_no_face_btn", use_container_width=True):
-                    st.session_state.class_image = None
+                    st.session_state.class_images = []
                     st.session_state.file_uploader_key += 1
                     st.rerun()
                 return
@@ -208,7 +321,7 @@ def teacher_tab_take_attendence():
             logs = []
             rows = []
             for sid in enrolled_student_ids:
-                is_present = sid in detected
+                is_present = sid in all_detected
                 logs.append({"student_id": sid, "is_present": is_present})
                 rows.append({
                     "Name": student_map.get(sid, f"ID {sid}"),
@@ -218,13 +331,21 @@ def teacher_tab_take_attendence():
             df = pd.DataFrame(rows)
             attendance_result_dialog(subject_id, selected_name, df, logs)
 
-    st.divider()
+    st.markdown("""
+        <hr style="
+            border: none;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.18);
+            margin: 24px 0;
+        ">
+        """, unsafe_allow_html=True)
 
-    # ── Voice Attendance ──
-    st.markdown(
-        "<h4 style='color:#ff9800;'>🎤 Voice Attendance (Optional)</h4>",
-        unsafe_allow_html=True,
-    )
+    st.markdown("""
+        <h4 style="color:#ff9800;">
+        ◉ Voice Attendance (Optional)
+        </h4>
+        """, unsafe_allow_html=True)    
+
     st.info("Record classroom audio. The AI will identify students by voice.")
 
     audio_data = st.audio_input("Record classroom audio")
@@ -292,8 +413,8 @@ def teacher_tab_manage_subjects():
 
     for sub in subjects:
         stats = [
-            ("👥", "students", sub['total_students']),
-            ("🕰️", "classes", sub['total_classes']),
+            ("groups", "students", sub['total_students']),
+            ("schedule", "classes", sub['total_classes']),
         ]
 
         # Use partial to avoid closure bug — captures current sub values
@@ -371,22 +492,48 @@ def teacher_tab_attendence_records():
 
     # Summary metrics
     m1, m2, m3 = st.columns(3)
-    with m1:
-        st.metric("Total Records", len(filtered))
-    with m2:
-        present_count = len(filtered[filtered['Status'] == "✅ Present"])
-        st.metric("Present", present_count)
-    with m3:
-        absent_count = len(filtered[filtered['Status'] == "❌ Absent"])
-        st.metric("Absent", absent_count)
 
-    st.divider()
+    with m1:
+        st.markdown(f"""
+        <div class="metric-card">
+            <span class="material-symbols-outlined metric-icon">dataset</span>
+            <div class="metric-title">Total Records</div>
+            <div class="metric-value">{len(filtered)}</div>
+        </div>
+        """, unsafe_allow_html=True)
+    with m2:
+        present_count = len(filtered[filtered["Status"] == "✅ Present"])
+        st.markdown(f"""
+        <div class="metric-card">
+            <span class="material-symbols-outlined metric-icon" style="color:#22c55e;">check_circle</span>
+            <div class="metric-title">Present</div>
+            <div class="metric-value">{present_count}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with m3:
+        absent_count = len(filtered[filtered["Status"] == "❌ Absent"])
+        st.markdown(f"""
+        <div class="metric-card">
+            <span class="material-symbols-outlined metric-icon" style="color:#ef4444;">cancel</span>
+            <div class="metric-title">Absent</div>
+            <div class="metric-value">{absent_count}</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("""
+        <hr style="
+            border: none;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.18);
+            margin: 24px 0;
+        ">
+        """, unsafe_allow_html=True)
 
     # Data table
     st.dataframe(filtered, hide_index=True, width='stretch')
 
     # CSV Export
-    st.divider()
     csv = filtered.to_csv(index=False).encode('utf-8')
     st.download_button(
         label="📥 Export as CSV",
@@ -441,7 +588,9 @@ def teacher_screen_login():
             type="primary",
             icon=":material/arrow_back:",
             icon_position="left",
+            shortcut='ctrl+backspace',
             key='longinbackbtn',
+            width='stretch'
         ):
             st.session_state["login_state"] = None
             st.rerun()

@@ -34,7 +34,23 @@ def dashboard_screen_bg():
 # ─── Design System ────────────────────────────────────────────────
 COMMON_STYLE = """
     @import url('https://fonts.googleapis.com/css2?family=Sonsie+One&family=Sora:wght@100..800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined', sans-serif !important;
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
+    #MainMenu, footer, header{visibility: hidden;}
     /* ── Primary button ── */
     button[data-testid="stBaseButton-primary"] {
         background-color: #BA5A5A !important;
@@ -312,9 +328,63 @@ def style_dashboard_layout():
                 font-size: 2rem !important;
                 font-weight: 700 !important;
             }}
+            /* ───────── Selectbox ───────── */
+            /* White background */
+            div[data-baseweb="select"] {{
+                background: #FFFFFF !important;
+            }}
             
+            div[data-baseweb="select"] > div {{
+                background: #FFFFFF !important;
+            }}
             
+            /* Input */
+            div[data-baseweb="select"] input {{
+                background: #FFFFFF !important;
+                color: #1F2937 !important;
+            }}
+            
+            /* Every nested div */
+            div[data-baseweb="select"] div {{
+                background: #FFFFFF !important;
+            }}
+            
+            /* Value text */
+            div[data-baseweb="select"] span {{
+                color: #1F2937 !important;
+            }}
+            
+            .metric-card {{
+                background: white;
+                border-radius: 18px;
+                padding: 20px;
+                box-shadow: 0 8px 24px rgba(0,0,0,.08);
+                transition: all .25s ease;
+                border: 1px solid #ECECEC;
+            }}
 
+            .metric-card:hover {{
+                transform: translateY(-5px);
+                box-shadow: 0 14px 30px rgba(75,86,148,.18);
+            }}
+
+            .metric-icon {{
+                font-size: 34px;
+                color: #4B5694;
+                margin-bottom: 8px;
+            }}
+
+            .metric-title {{
+                font-size: 15px;
+                color: #64748B;
+                margin-bottom: 8px;
+            }}
+
+            .metric-value {{
+                font-size: 36px;
+                font-weight: 700;
+                color: #063B00;
+            }}
             </style>
         """,
         unsafe_allow_html=True,
