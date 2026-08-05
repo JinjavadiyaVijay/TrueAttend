@@ -422,6 +422,10 @@ def style_dashboard_layout():
                 [data-testid="stDialog"] h2 p {{
                     color: white !important;
                 }}
+            div[data-testid="stDialog"] h2.st-emotion-cache-1wjw5f2,
+            div[data-testid="stDialog"] h2.st-emotion-cache-1wjw5f2 p {{
+                    color: #fff !important;
+                }}
             </style>
         """,
         unsafe_allow_html=True,
