@@ -13,5 +13,4 @@ dist/
 *.json
 *.jsonl
 *.pyc
-__pycache__/
-database/
+__pycache__/
