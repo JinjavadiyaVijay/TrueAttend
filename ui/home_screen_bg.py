@@ -71,6 +71,9 @@ COMMON_STYLE = """
     button[data-testid="stBaseButton-primary"]:active {
         transform: translateY(0) !important;
     }
+    button[data-testid="stBaseButton-primary"] p, button[data-testid="stBaseButton-primary"] span, button[data-testid="stBaseButton-primary"] div {
+        color: #FFF8EC !important;
+    }
 
     /* ── Secondary button ── */
     button[data-testid="stBaseButton-secondary"] {
@@ -88,6 +91,9 @@ COMMON_STYLE = """
         background-color: #3d4778 !important;
         transform: translateY(-2px) !important;
         box-shadow: 0 6px 16px rgba(75,86,148,0.3) !important;
+    }
+    button[data-testid="stBaseButton-secondary"] p, button[data-testid="stBaseButton-secondary"] span, button[data-testid="stBaseButton-secondary"] div {
+        color: white !important;
     }
 
     /* ── Tertiary button ── */
@@ -233,6 +239,22 @@ COMMON_STYLE = """
     /* ── Alert boxes ── */
     div[data-testid="stAlert"] {
         border-radius: 12px !important;
+    }
+    div[data-testid="stAlert"] p, div[data-testid="stAlert"] span, div[data-testid="stAlert"] div {
+        color: #1F2937 !important;
+    }
+
+    /* ── Dialog specific ── */
+    div[role="dialog"] div[data-testid="stTextInput"] label,
+    div[role="dialog"] div[data-testid="stSelectbox"] label,
+    div[role="dialog"] div[data-testid="stRadio"] label,
+    div[role="dialog"] p,
+    div[role="dialog"] span,
+    div[role="dialog"] h1,
+    div[role="dialog"] h2,
+    div[role="dialog"] h3,
+    div[role="dialog"] div[data-testid="stMarkdownContainer"] p {
+        color: white !important;
     }
 """
 
