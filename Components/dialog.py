@@ -49,9 +49,28 @@ def share_subject_dialog(sub_name, sub_code):
         st.markdown('### Copy Link')
         st.code(join_url, language='text')
         st.code(sub_code, language='text')
+        st.markdown("""
+            <style>
+            div[data-testid="stAlert"] p {
+                color: white !important;
+            }
+            </style>
+                    """, unsafe_allow_html=True)
         st.info('Copy this link or QR code to invite students to join this subject.')
     
     with col2:
         st.markdown('### Scan QR Code')
         st.image(out.getvalue(),caption='QR Code', width=180)
         st.success(f'Subject: {sub_name}')
+
+# ─── Dialogs ──────────────────────────────────────────────────────
+@st.dialog("Take Class Photo")
+def take_picture_dialog():
+    photo = st.camera_input("Capture class photo", label_visibility="collapsed")
+    if photo:
+        if 'class_images' not in st.session_state:
+            st.session_state.class_images = []
+        st.session_state.class_images.append(np.array(Image.open(photo)))
+    
+    if st.button("Done", type="primary", use_container_width=True):
+        st.rerun()

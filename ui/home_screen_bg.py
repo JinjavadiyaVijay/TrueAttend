@@ -407,6 +407,15 @@ def style_dashboard_layout():
                 font-weight: 700;
                 color: #063B00;
             }}
+            /* st.success text */
+            div[data-testid="stAlert"][kind="success"] p {{
+                color: white !important;
+            }}
+
+            /* st.info text */
+            div[data-testid="stAlert"][kind="info"] p {{
+                color: white !important;
+            }}
             </style>
         """,
         unsafe_allow_html=True,

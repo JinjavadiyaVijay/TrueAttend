@@ -6,7 +6,7 @@ from functools import partial
 from datetime import datetime
 
 from Components.header_home import header_dashboard, sub_header_dashboard, custom_text_input
-from Components.dialog import create_subject_dailog, share_subject_dialog
+from Components.dialog import create_subject_dailog, share_subject_dialog, take_picture_dialog
 from Components.subject_card import subject_card
 from Components.dialog_attendance_results import attendance_result_dialog
 from Components.footer import footer
@@ -100,19 +100,6 @@ def teacher_dashboard():
         teacher_tab_attendence_records()
 
     footer()
-
-
-# ─── Dialogs ──────────────────────────────────────────────────────
-@st.dialog("Take Class Photo")
-def take_picture_dialog():
-    photo = st.camera_input("Capture class photo", label_visibility="collapsed")
-    if photo:
-        if 'class_images' not in st.session_state:
-            st.session_state.class_images = []
-        st.session_state.class_images.append(np.array(Image.open(photo)))
-    
-    if st.button("Done", type="primary", use_container_width=True):
-        st.rerun()
 
 # ─── Take Attendance Tab ─────────────────────────────────────────
 def teacher_tab_take_attendence():
