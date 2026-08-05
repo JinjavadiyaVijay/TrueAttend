@@ -4,6 +4,8 @@ from database.db import create_subject
 import segno 
 import io 
 import os
+import numpy as np
+from PIL import Image
 from urllib.parse import urlencode
 
 
@@ -66,6 +68,16 @@ def share_subject_dialog(sub_name, sub_code):
 # ─── Dialogs ──────────────────────────────────────────────────────
 @st.dialog("Take Class Photo")
 def take_picture_dialog():
+    st.markdown("""
+        <style>
+            div[role="dialog"] header h2 {
+                color: white !important;
+            }
+            div[role="dialog"] h2 {
+                color: white !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
     photo = st.camera_input("Capture class photo", label_visibility="collapsed")
     if photo:
         if 'class_images' not in st.session_state:
