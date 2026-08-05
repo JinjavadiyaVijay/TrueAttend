@@ -8,6 +8,4 @@ scikit-learn
 resemblyzer
 librosa
 Pillow
-torch
-torchaudio
 segno
