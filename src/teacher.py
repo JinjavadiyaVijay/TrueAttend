@@ -51,7 +51,6 @@ def teacher_dashboard():
             type="primary",
             icon=":material/arrow_back:",
             icon_position="left",
-            shortcut="control+backspace",
             key='longinbackbtn',
         ):
             st.session_state["is_logged_in"] = False
@@ -588,7 +587,6 @@ def teacher_screen_login():
             type="primary",
             icon=":material/arrow_back:",
             icon_position="left",
-            shortcut='ctrl+backspace',
             key='longinbackbtn',
             width='stretch'
         ):
@@ -612,7 +610,7 @@ def teacher_screen_login():
     btnc1, btnc2 = st.columns(2)
 
     with btnc1:
-        if st.button('Login', icon=':material/passkey:', shortcut='control+enter', width='stretch'):
+        if st.button('Login', icon=':material/passkey:', width='stretch'):
             if login_teacher(teacher_username, teacher_password):
                 st.toast("Welcome back!", icon="👋")
                 import time
@@ -638,7 +636,8 @@ def teacher_screen_register():
             type="primary",
             icon=":material/arrow_back:",
             icon_position="left",
-            key='longinbackbtn'
+            key='longinbackbtn',
+            width='stretch',
         ):
             st.session_state["login_state"] = None
             st.rerun()
@@ -663,7 +662,7 @@ def teacher_screen_register():
 
     btnc1, btnc2 = st.columns(2)
     with btnc1:
-        if st.button('Register Now', icon=':material/passkey:', shortcut='control+enter', width='stretch'):
+        if st.button('Register Now', icon=':material/passkey:', width='stretch'):
             success, message = register_teacher(teacher_name, teacher_username, teacher_password, teacher_password_confirm)
             if success:
                 st.success(message)

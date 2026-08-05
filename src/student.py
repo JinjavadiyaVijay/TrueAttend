@@ -39,7 +39,6 @@ def student_screen():
             type="primary",
             icon=":material/arrow_back:",
             width='stretch',
-            shortcut='cltr+backspace',
             key='gobackbtn',
         ):
             st.session_state.login_state = None
@@ -196,7 +195,6 @@ def student_dashboard():
             type="primary",
             icon=":material/arrow_back:",
             key='loginbackbtn',
-            shortcut="control+backspace",
             width="stretch"
         ):
             st.session_state['is_logged_in'] = False

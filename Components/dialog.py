@@ -7,7 +7,7 @@ import os
 from urllib.parse import urlencode
 
 
-APP_BASE_URL = os.getenv("TRUEATTEND_BASE_URL", "http://localhost:8501")
+APP_BASE_URL = os.getenv("TRUEATTEND_BASE_URL", "https://trueattend.streamlit.app")
 
 
 def _build_join_url(subject_code):
@@ -16,10 +16,13 @@ def _build_join_url(subject_code):
 
 @st.dialog("Create New Subject")
 def create_subject_dailog(teacher_id):
-    st.write('Enter the details of new subjecr')
-    sub_id = st.text_input("Subject Code",placeholder="C5101")
-    sub_name = st.text_input("Subject Name",placeholder="Introduction to Computer Science")
-    sub_section = st.text_input("Section",placeholder="A")
+    st.write('Enter the details of new subject')
+    st.markdown('<p style="color:white; margin-bottom:0;">Subject Code</p>', unsafe_allow_html=True)
+    sub_id = st.text_input("Subject Code", placeholder="C5101", label_visibility="collapsed")
+    st.markdown('<p style="color:white; margin-bottom:0;">Subject Name</p>', unsafe_allow_html=True)
+    sub_name = st.text_input("Subject Name", placeholder="Introduction to Computer Science", label_visibility="collapsed")
+    st.markdown('<p style="color:white; margin-bottom:0;">Section</p>', unsafe_allow_html=True)
+    sub_section = st.text_input("Section", placeholder="A", label_visibility="collapsed")
     
     if st.button("Create Subject Now",type='primary',width='stretch'):
         if sub_id and sub_name and sub_section:
@@ -52,7 +55,3 @@ def share_subject_dialog(sub_name, sub_code):
         st.markdown('### Scan QR Code')
         st.image(out.getvalue(),caption='QR Code', width=180)
         st.success(f'Subject: {sub_name}')
-
-
-    # st.write(f"Share this code with your students for **{sub_name}**")
-    # st.code(sub_code, language=None)
